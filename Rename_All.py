@@ -18,13 +18,14 @@ file_num = 2  # this is the start number for the new names
 #     return Image.open(path)._getexif()[36867]
 
 
-def walktree(top, ext, callback):
+def walktree(top, ext, fileNum, callback):
     """
     recursively descend the directory tree rooted at top,
     calling the callback function for each regular file
     """
 
     global file_num
+    file_num = fileNum
     for f in os.listdir(top):
         pathname = os.path.join(top, f)
         file_num = file_num + 1

@@ -7,7 +7,7 @@ label2 = sg.Text("Enter Destination Folder: ")
 label3 = sg.Text("Enter target extension (mp3, etc.): ")
 
 Input_Source = sg.InputText(tooltip="Enter Source Folder.", key='Source_Folder')
-Input_Dest = sg.InputText(tooltip="Enter Destination Folder.", key='Dest_Folder')
+Input_Dest = sg.InputText(tooltip="Enter Starting number for rename.", key='Rename_number')
 Input_Ext = sg.InputText(tooltip="Enter Target Ext.", key='Source_Ext')
 
 run_button = sg.Button("Run")
@@ -26,10 +26,10 @@ while True:
         case "Run":
             print("Run")
             SourceFolder = value['Source_Folder']
-            DestFolder = value['Dest_Folder']
+            StartNum = int(value['Rename_number'])
             DestExt = value['Source_Ext']
-            print(SourceFolder,DestFolder,DestExt)
-            RA.walktree(SourceFolder, DestExt, RA.visitfile)
+            print(SourceFolder, StartNum, DestExt)
+            RA.walktree(SourceFolder, DestExt, StartNum, RA.visitfile)
         case "Exit":
             # exit(0)
             break
