@@ -4,7 +4,9 @@ from PIL import Image
 from datetime import datetime
 from PIL.ExifTags import TAGS
 import exifread
+import logging
 
+logging.basicConfig(filename='Rename_All.log', filemode='w', format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p',level=logging.INFO)
 file_num = 2  # this is the start number for the new names
 """
 # THIS PROGRAM RUNS FROM CMD LINE <Starting path> <file extension> 
@@ -39,19 +41,19 @@ def walktree(top, ext, callback):
             callback(pathname, f, file_num, top, ext)
         else:
             # Unknown file type, print a message
-            print('Skipping %s' % pathname)
+            logging.info('Skipping %s' % pathname)
 
 
 def visitfile(file, f, fnum, folder, fileext):
-    print('visiting', file, f, fnum, folder, fileext)
+    logging.info('visiting ' + file + f + str(fnum) + folder + fileext)
     has_info = 0
     img_open = 0
     try:
-        print("Before image open")
+        logging.info("Before image open")
         with Image.open(file) as img:
             # img = Image.open(file)
             d = img.getexif()
-            print(d)
+            logging.info(d)
             img_open = 1
         for key, value in d.items():
             if key == 306:
@@ -60,25 +62,27 @@ def visitfile(file, f, fnum, folder, fileext):
                 str_time = str(datetime.strftime(img_time, '%Y_%m_%d'))
                 if str_time is not None:
                     has_info = 1
-        print(str_time, type(str_time))
-        print("before image close 1")
+        logging.info(str_time)
+        logging.info(type(str_time))
+
+        logging.info("before image close 1")
         # img.close()
  #   except UnboundLocalError as U_error:
  #       print(U_error)
  #       if img is not None:
  #           img.close()
     except:
-        print("Image does not contain information.")
+        logging.info("Image does not contain information.")
         # if img_open == 0:
             # img.close()
 
     tmp = time.strptime((time.ctime(os.path.getmtime(file))))  # the modification date
     if has_info == 1:
         os.rename(file, folder + "/" + fileext + "_" + str_time + "_" + str(fnum) + "." + fileext)
-        print("new file: ", folder + "/" + fileext + "_" + str_time + "_" + str(fnum) + "." + fileext)
+        logging.info("new file: " + folder + "/" + fileext + "_" + str_time + "_" + str(fnum) + "." + fileext)
     else:
         os.rename(file, folder + "/" + fileext + "_" + str(tmp[0]) + str(tmp[1]) + "_" + str(fnum) + "." + fileext)
-        print("new file: ", folder + "/" + fileext + "_" + str(tmp[0]) + str(tmp[1]) + "_" + str(fnum) + "." + fileext)
+        logging.info("new file: " + folder + "/" + fileext + "_" + str(tmp[0]) + str(tmp[1]) + "_" + str(fnum) + "." + fileext)
 
 
 if __name__ == '__main__':
