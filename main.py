@@ -2,22 +2,24 @@
 import Rename_All as RA
 import PySimpleGUI as sg
 
-label = sg.Text("Enter Source Folder: ")
-label2 = sg.Text("Enter Destination Folder: ")
-label3 = sg.Text("Enter target extension (mp3, etc.): ")
+label = sg.Text("Source Folder: ")
+label2 = sg.Text("Rename Number: ")
+label3 = sg.Text("Target extension (jpeg,gif, etc.): ")
 
 Input_Source = sg.InputText(tooltip="Enter Source Folder.", key='Source_Folder')
 Input_Dest = sg.InputText(tooltip="Enter Starting number for rename.", key='Rename_number')
 Input_Ext = sg.InputText(tooltip="Enter Target Ext.", key='Source_Ext')
+choose_folder = sg.FolderBrowse("Folder...")
 
 run_button = sg.Button("Run")
 exit_button = sg.Button("Exit")
 
-window = sg.Window("Rename Music Files",
-                   layout=[[label], [Input_Source], [label2],
-                         [Input_Dest], [label3], [Input_Ext],
-                         [exit_button, run_button]],
-                   font=('Helvetica', 20))
+window = sg.Window("Rename Image Files",
+                   layout=[
+                       [label, Input_Source, choose_folder],
+                       [label2], [Input_Dest], [label3], [Input_Ext],
+                       [exit_button, run_button]
+                        ], font=('Helvetica', 20))
 while True:
     event, value = window.read()
     print(event)
