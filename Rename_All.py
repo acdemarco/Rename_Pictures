@@ -7,16 +7,7 @@ import exifread
 import logging
 
 logging.basicConfig(filename='Rename_All.log', filemode='w', format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p',level=logging.INFO)
-file_num = 2  # this is the start number for the new names
-"""
-# THIS PROGRAM RUNS FROM CMD LINE <Starting path> <file extension> 
-# if program in cur directory:  c:\python walktree_directory.py c:/temp jpeg
-"""
-
-
-# def get_date_taken(path):
-#     return Image.open(path)._getexif()[36867]
-
+file_num = 0  # this is the start number for the new names
 
 def walktree(top, ext, fileNum, callback):
     """
