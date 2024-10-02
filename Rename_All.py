@@ -8,6 +8,7 @@ from hachoir.metadata import extractMetadata
 from pymediainfo import MediaInfo
 #import exifread
 import logging
+#pip install pillow_heif
 from pillow_heif import register_heif_opener
 
 register_heif_opener()
